@@ -2,7 +2,7 @@
 
 # Check for empty folder name
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
-  exit "Unknown folder name or crop length or sample width"
+  exit "Unknown folder name or crop length or sample width: $1 + $2 + $3"
 fi
 
 # Merge MP3 files
@@ -38,6 +38,6 @@ fi
 for file in $1/split/$3/wav/*.wav; do
   ffmpeg -i $file -lavfi showspectrumpic=s=960x540:saturation=1:gain=5:legend=0:win_func=poisson:scale=lin $1/split/$3/spect/$(basename $file).png
   #ffmpeg -i $file -lavfi showspectrumpic=gain=1 $1/split/$3/spect/$(basename $file).png
-#  sox $file -n spectrogram -r -o $1/split/$3/spect/$(basename $file).png
+  #sox $file -n spectrogram -r -o $1/split/$3/spect/$(basename $file).png
 done
 
