@@ -17,6 +17,10 @@ fi
 # Split the file
 ffmpeg -i $1/$(basename $1).wav -t $2 -f segment -segment_time $3 -c copy $1/split/$3/wav/%03d.wav
 
+if [ ! "$4" == "s" ]; then
+  exit 0
+fi
+
 if [ ! -d $1/split/$3/spect ]; then
   mkdir -p $1/split/$3/spect
 fi
