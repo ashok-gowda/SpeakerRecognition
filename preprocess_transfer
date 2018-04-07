@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Check for empty folder name
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+  exit "Unknown folder name or crop length or sample width: $1 + $2 + $3"
+fi
+
+# Convert to wav
+if [ ! -f "$1/$(basename $1).wav" ]; then
+  ffmpeg -i $1/*.mp3 -acodec pcm_s16le -ac 1 -ar 8000 "$1/$(basename $1).wav"
+fi
+
+if [ ! -d $1/split/$3/wav ]; then
+  mkdir -p $1/split/$3/wav
+fi
+
+# Split the file
+ffmpeg -i $1/$(basename $1).wav -t $2 -f segment -segment_time $3 -c copy $1/split/$3/wav/%03d.wav
+
+if [ ! -d $1/split/$3/spect ]; then
+  mkdir -p $1/split/$3/spect
+fi
+
+# Create spectrogram
+for file in $1/split/$3/wav/*.wav; do
+  ffmpeg -i $file -lavfi showspectrumpic=s=960x540:saturation=1:gain=5:legend=0:win_func=poisson:scale=lin $1/split/$3/spect/$(basename $file).png
+done
+

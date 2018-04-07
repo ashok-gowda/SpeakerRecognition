@@ -21,7 +21,8 @@ if [ ! -f "$1/$(basename $1)_merged_$2.wav" ]; then
 fi
 
 # Remove silence
-sox $1/$(basename $1)_merged_$2.wav $1/$(basename $1)_merged_$2_silent.wav silence -l 1 0.1 1% -1 0.8 1%
+#sox $1/$(basename $1)_merged_$2.wav $1/$(basename $1)_merged_$2_silent.wav silence -l 1 0.1 1% -1 0.8 1%
+ffmpeg -i $1/$(basename $1)_merged_$2.wav -af silenceremove=1:0:0:-1:1:-30dB $1/$(basename $1)_merged_$2_silent.wav
 
 if [ ! -d $1/split/$3/wav ]; then
   mkdir -p $1/split/$3/wav
