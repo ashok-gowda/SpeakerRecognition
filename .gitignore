@@ -1,0 +1,4 @@
+audio-*
+mfcc_model*
+spect_model_*
+neural-net-weights
