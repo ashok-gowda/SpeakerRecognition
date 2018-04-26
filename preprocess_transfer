@@ -19,7 +19,7 @@ if [ ! -d $1/split/$3/wav ]; then
 fi
 
 # Split the file
-ffmpeg -i $1/$(basename $1)_silent.wav -t $2 -ss 60 -f segment -segment_time $3 -c copy $1/split/$3/wav/%03d.wav
+ffmpeg -i $1/$(basename $1)_silent.wav -t $2 -ss 15 -f segment -segment_time $3 -c copy $1/split/$3/wav/%03d.wav
 
 if [ ! "$4" == "s" ]; then
   exit 0

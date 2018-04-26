@@ -5,11 +5,6 @@ if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
   exit "Unknown folder name or crop length or sample width: $1 + $2 + $3"
 fi
 
-# Merge MP3 files
-if [ ! -f "$1/$(basename $1)_merged.mp3" ]; then
-  cat $1/*.mp3 > "$1/$(basename $1)_merged.mp3"
-fi
-
 # Cut the file into desired length
 if [ ! -f "$1/$(basename $1)_merged_$2.mp3" ]; then
   ffmpeg -t $2 -i "$1/$(basename $1)_merged.mp3" -acodec copy "$1/$(basename $1)_merged_$2.mp3"
@@ -17,12 +12,13 @@ fi
 
 # Convert to wav
 if [ ! -f "$1/$(basename $1)_merged_$2.wav" ]; then
-  ffmpeg -i $1/$(basename $1)_merged_$2.mp3 -acodec pcm_s16le -ac 1 -ar 8000 "$1/$(basename $1)_merged_$2.wav"
+  ffmpeg -i $1/*.mp3 -acodec pcm_s16le -t 512 -ac 1 -ar 16000 "$1/$(basename $1).wav"
 fi
 
 # Remove silence
-#sox $1/$(basename $1)_merged_$2.wav $1/$(basename $1)_merged_$2_silent.wav silence -l 1 0.1 1% -1 0.8 1%
-ffmpeg -i $1/$(basename $1)_merged_$2.wav -af silenceremove=1:0:0:-1:1:-30dB $1/$(basename $1)_merged_$2_silent.wav
+if [ ! -f "$1/$(basename $1)_silent.wav" ]; then
+  ffmpeg -i $1/$(basename $1).wav -af silenceremove=1:0:0:-1:1:-30dB $1/$(basename $1)_silent.wav
+fi
 
 if [ ! -d $1/split/$3/wav ]; then
   mkdir -p $1/split/$3/wav
@@ -31,7 +27,7 @@ fi
 # Split the file
 files=$(ls -1 $1/split/$3/wav | wc -l)
 if [ ! $files -gt 0 ]; then
-  ffmpeg -i $1/$(basename $1)_merged_$2_silent.wav -f segment -segment_time $3 -c copy $1/split/$3/wav/%03d.wav
+  ffmpeg -i $1/$(basename $1)_silent.wav -t $2 -ss 20 -f segment -segment_time $3 -c copy $1/split/$3/wav/%03d.wav
 fi
 
 if [ ! "$4" == "s" ]; then
