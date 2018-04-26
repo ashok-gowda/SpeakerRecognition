@@ -7,7 +7,11 @@ fi
 
 # Convert to wav
 if [ ! -f "$1/$(basename $1).wav" ]; then
-  ffmpeg -i $1/*.mp3 -acodec pcm_s16le -ac 1 -ar 8000 "$1/$(basename $1).wav"
+  ffmpeg -i $1/*.mp3 -acodec pcm_s16le -ac 1 -ar 16000 "$1/$(basename $1).wav"
+fi
+
+if [ ! -f "$1/$(basename $1)_silent.wav" ]; then
+  ffmpeg -i $1/$(basename $1).wav -af silenceremove=1:0:0:-1:1:-30dB $1/$(basename $1)_silent.wav
 fi
 
 if [ ! -d $1/split/$3/wav ]; then
@@ -15,7 +19,7 @@ if [ ! -d $1/split/$3/wav ]; then
 fi
 
 # Split the file
-ffmpeg -i $1/$(basename $1).wav -t $2 -f segment -segment_time $3 -c copy $1/split/$3/wav/%03d.wav
+ffmpeg -i $1/$(basename $1)_silent.wav -t $2 -ss 60 -f segment -segment_time $3 -c copy $1/split/$3/wav/%03d.wav
 
 if [ ! "$4" == "s" ]; then
   exit 0
