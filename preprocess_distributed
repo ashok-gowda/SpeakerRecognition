@@ -5,13 +5,14 @@ if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
   exit "Unknown folder name or crop length or sample width: $1 + $2 + $3"
 fi
 
-if [ ! -f "$1/$(basename $1)_merged.mp3" ]; then
-  cat $1/*.mp3 > "$1/$(basename $1)_merged.mp3"
+# Cut the file into desired length
+if [ ! -f "$1/$(basename $1)_merged_$2.mp3" ]; then
+  ffmpeg -t $2 -i "$1/$(basename $1)_merged.mp3" -acodec copy "$1/$(basename $1)_merged_$2.mp3"
 fi
 
 # Convert to wav
-if [ ! -f "$1/$(basename $1).wav" ]; then
-  ffmpeg -i $1/$(basename $1)_merged.mp3 -acodec pcm_s16le -t 512 -ac 1 -ar 16000 "$1/$(basename $1).wav"
+if [ ! -f "$1/$(basename $1)_merged_$2.wav" ]; then
+  ffmpeg -i $1/*.mp3 -acodec pcm_s16le -t 512 -ac 1 -ar 16000 "$1/$(basename $1).wav"
 fi
 
 # Remove silence
