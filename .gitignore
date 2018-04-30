@@ -2,3 +2,7 @@ audio-*
 mfcc_model*
 spect_model_*
 neural-net-weights
+*.pyc
+*.h5
+.ipynb_checkpoints
+*.swp
