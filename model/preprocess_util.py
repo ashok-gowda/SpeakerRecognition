@@ -88,3 +88,24 @@ def distribute_samples(root):
                 break
         remove_extra_samples(root)
         break
+
+# Combine distributed samples back into a single directory
+def combine_samples(root):
+    for subdir, dirs, files in os.walk(root):
+        for directory in dirs:
+            if not os.path.isdir(os.path.join(subdir, directory.split(".")[0])):
+                os.makedirs(os.path.join(subdir, directory.split(".")[0]))
+            else:
+                for f in glob.glob(os.path.join(subdir, directory.split(".")[0], "*.npy")):
+                    os.remove(f)
+                    shutil.rmtree(os.path.join(subdir, directory.split(".")[0], "split"), ignore_errors = True)
+            for d_subdir, d_dirs, d_files in os.walk(os.path.join(root, directory)):
+                mp3_files = glob.glob(os.path.join(subdir, directory, "*.mp3"))
+                for i, sample in enumerate(mp3_files):
+                    shutil.move(os.path.join(subdir, directory, os.path.basename(sample)), \
+                                os.path.join(subdir, directory.split(".")[0], os.path.basename(sample)))
+                if len(directory.split(".")) != 1:
+                    shutil.rmtree(os.path.join(subdir, directory))
+                break
+        break
+
