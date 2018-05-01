@@ -19,8 +19,9 @@ def run_preprocess_spect(root, length, split, transfer = False):
     for subdir, dirs, files in os.walk(root):
         for directory in dirs:
             pr_file = "preprocess_transfer" if transfer else "preprocess"
-            subprocess.call([os.path.join('..', 'data_pro', pr_file),\
-                             os.path.join(subdir, directory), length, split, "s"])
+            if not os.path.isdir(os.path.join(subdir, directory, "split", split)):
+                subprocess.call([os.path.join('..', 'data_pro', pr_file),\
+                                 os.path.join(subdir, directory), length, split, "s"])
         break
 
 # Loads the saved spectrogram files into the main memory.
@@ -33,7 +34,7 @@ def load_features_spect(root, split):
             for filename in os.listdir(file_path):
                 x = plt.imread(os.path.join(file_path, filename))
                 spect_data.append(x)
-                spect_label.append(directory)
+                spect_label.append(directory.split('.')[0])
         break
     return spect_data, spect_label
 
