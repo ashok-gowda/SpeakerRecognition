@@ -16,7 +16,7 @@ def run_preprocess(root, length, split, n_mfcc, n_mfcc_width, transfer = False):
     for subdir, dirs, files in os.walk(root):
         for directory in dirs:
             mfcc_data = []
-            npy_file = directory + '_' + 'mfcc' + '_' + str(128) + '.npy'
+            npy_file = directory + '_mfcc_' + str(128) + '_' + length + '_' + split + '.npy'
             if os.path.isfile(os.path.join(subdir, directory, npy_file)):
                 continue
 
@@ -45,7 +45,8 @@ def load_features(root, length, split, n_mfcc, n_mfcc_width, dist = False):
         for directory in dirs:
             if dist == True and len(directory.split(".")) != 2:
                 continue
-            npy_file = directory + '_' + 'mfcc' + '_' + str(128) + '.npy'
+
+            npy_file = directory + '_mfcc_' + str(128) + '_' + length + '_' + split + '.npy'
             mfcc = np.load(os.path.join(subdir, directory, npy_file))
             if mfcc.size == 0:
                 continue

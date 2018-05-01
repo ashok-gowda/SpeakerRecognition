@@ -33,7 +33,7 @@ def main():
     print("Running preprocess..")
     run_preprocess(data_dir, str(audio_len), str(window_size), n_mfcc, n_mfcc_width)
     
-    # Load saved spectrograms
+    # Load saved MFCC coefficients from npy files
     print("Loading MFCC data..")
     X, y = load_features(data_dir, str(audio_len), str(window_size), n_mfcc, n_mfcc_width)
         
@@ -57,7 +57,8 @@ def main():
          validation_data=(np.array(X_test), y_test))
     
     # Save the trained model weights
-    model.save_weights('mfcc_model_weights_' + str(audio_len) + '_' + str(window_size) + '-' + str(n_mfcc) + '.h5')
+    model.save_weights('mfcc_model_weights_' + str(audio_len) + '_' + \
+                       str(window_size) + '-' + str(n_mfcc) + '.h5')
     
     print("Successfully completed.")
 
