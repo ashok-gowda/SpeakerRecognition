@@ -79,7 +79,7 @@ def build_spectrogram_model(input_shape, output_labels):
     model.add(Dense(output_labels))
     model.add(Activation('softmax'))
 
-    # Initializr RMSprop
+    # Initialize RMSprop
     opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
 
     # Compile the model
