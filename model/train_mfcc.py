@@ -42,8 +42,9 @@ def main():
          validation_data=(np.array(X_test), y_test))
     
     # Save the trained model weights
-    model.save_weights('mfcc_model_weights_' + str(audio_len) + '_' + \
-                       str(window_size) + '-' + str(n_mfcc) + '.h5')
+    model.save_weights(os.path.join('..', 'neural-net-weights', \
+                                    'mfcc_model_weights_' + str(n_mfcc) + '_' + \
+                                        str(audio_len) + '_' + str(window_size) + '.h5'))
     
     print("Successfully completed.")
 

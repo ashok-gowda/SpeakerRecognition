@@ -54,7 +54,8 @@ def main():
 
     # Load saved neural network weights.
     model.load_weights(os.path.join('..', 'neural-net-weights', \
-                                    'mfcc_model_weights_' + '.h5'))
+                                    'mfcc_model_weights_' + str(n_mfcc) + '_' + \
+                                        str(audio_len_nn) + '_' + str(window_size) + '.h5'))
     
     # Get the output layer (Flatten layer).
     transfer_model = Model(inputs = model.input, outputs = model.get_layer('flatten_1').output)
