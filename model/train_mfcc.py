@@ -1,8 +1,6 @@
 import os
 
-import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from keras.utils import plot_model
 
 from model_mfcc import *
 from utils import *
@@ -14,19 +12,6 @@ audio_len = 90
 data_dir = os.path.join('..', 'audio-train-new')
 mfcc_shape = (n_mfcc, n_mfcc_width, 1)
 n_samples = 112
-
-def plot_model(model):
-    plot_model(model, to_file='mfcc_model.png', show_shapes=True)
-    
-def plot_val_acc(train_result):
-    plt.style.use('dark_background')
-    plt.plot(train_result.history['acc'], color="#5599FF")
-    plt.plot(train_result.history['val_acc'], color="#55FF99")
-    plt.title('model accuracy')
-    plt.ylabel('accuracy')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
-    plt.show()
 
 def main():
     # Generate MFCC features and save them on the disk.
