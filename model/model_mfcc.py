@@ -12,7 +12,7 @@ from keras.models import Sequential
 
 from preprocess_util import *
 
-def run_preprocess(root, length, split, n_mfcc, n_mfcc_width, transfer = False):
+def run_preprocess_mfcc(root, length, split, n_mfcc, n_mfcc_width, transfer = False):
     for subdir, dirs, files in os.walk(root):
         for directory in dirs:
             mfcc_data = []
@@ -38,7 +38,7 @@ def run_preprocess(root, length, split, n_mfcc, n_mfcc_width, transfer = False):
             # shutil.rmtree(os.path.join(subdir, directory, "split"), ignore_errors = True)
         break
 
-def load_features(root, length, split, n_mfcc, n_mfcc_width, dist = False):
+def load_features_mfcc(root, length, split, n_mfcc, n_mfcc_width, dist = False):
     mfcc_data = np.zeros((0, n_mfcc, n_mfcc_width))
     mfcc_label = []
     for subdir, dirs, files in os.walk(root):
@@ -56,7 +56,7 @@ def load_features(root, length, split, n_mfcc, n_mfcc_width, dist = False):
     return mfcc_data, mfcc_label
 
 # Build the CNN for MFCC
-def build_mfcc_model(input_shape, n_dense, output_labels):
+def build_model_mfcc(input_shape, n_dense, output_labels):
     model = Sequential()
     model.add(Conv2D(32, kernel_size=(2, 2), activation='relu',
               input_shape = input_shape))

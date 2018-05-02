@@ -18,7 +18,7 @@ def convert_to_lpc(filename, n_coeff):
     lpc_signal=lpc(wave, n_coeff)
     return np.hstack((lpc_signal[0], lpc_signal[1], lpc_signal[2]))
 
-def run_preprocess(root, length, split, n_coeff, transfer = False):
+def run_preprocess_lpcc(root, length, split, n_coeff, transfer = False):
     for subdir, dirs, files in os.walk(root):
         for directory in dirs:
             lpcc_data = []
@@ -41,7 +41,7 @@ def run_preprocess(root, length, split, n_coeff, transfer = False):
             np.save(os.path.join(subdir, directory, npy_file), np.asarray(lpcc_data))
         break
 
-def load_features(root, length, split, n_coeff):
+def load_features_lpcc(root, length, split, n_coeff):
     lpcc_data=[]
     lpcc_label = []
     for subdir, dirs, files in os.walk(root):
@@ -60,8 +60,8 @@ def load_features(root, length, split, n_coeff):
         break
     return lpcc_data, lpcc_label
 
-# Build the CNN for LPCC 
-def build_lpcc_model(input_shape, n_dense, output_labels):
+# Build the CNN for LPCC
+def build_model_lpcc(input_shape, n_dense, output_labels):
     model = Sequential()
     model.add(Conv2D(32, kernel_size=(2, 2), activation='relu',
               input_shape = input_shape))
