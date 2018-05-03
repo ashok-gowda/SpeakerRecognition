@@ -1,3 +1,5 @@
+# MFCC based Transfer Learning
+
 import os
 
 from sklearn.model_selection import train_test_split
@@ -11,7 +13,7 @@ window_size = 10
 audio_len = 90
 data_dir = os.path.join('..', 'audio-train-new')
 mfcc_shape = (n_mfcc, n_mfcc_width, 1)
-n_samples = 112
+n_samples = 120
 
 def main():
     # Generate MFCC features and save them on the disk.

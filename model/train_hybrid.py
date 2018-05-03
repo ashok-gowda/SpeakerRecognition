@@ -1,3 +1,5 @@
+# LPCC & MFCC based Transfer Learning
+
 import os
 
 from sklearn.model_selection import train_test_split
@@ -15,7 +17,7 @@ audio_len = 500
 data_dir = os.path.join('..', 'audio-train-new')
 lpcc_shape = (10, (n_lpcc + 1) / 5, 1)
 mfcc_shape = (n_mfcc, n_mfcc_width, 1)
-n_samples = 112
+n_samples = 120
 
 # Split the combined data into train and test sets.
 # Then reorganize them to LPCC and MFCC data

@@ -1,4 +1,5 @@
-# ### Spectrogram based Transfer Learning
+# MFCC based Transfer Learning
+
 import os
 
 from keras.models import Model
@@ -21,7 +22,7 @@ window_size = 10
 audio_len = 20
 audio_len_nn = 90
 data_dir = os.path.join('..', 'audio-train-transfer')
-n_samples = 118
+n_samples = 120
 mfcc_shape = (n_mfcc, n_mfcc_width, 1)
 
 def learn_nn_features(model, X):

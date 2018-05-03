@@ -19,7 +19,7 @@ window_size = 12
 audio_len = 24
 audio_len_nn = 84
 data_dir = os.path.join('..', 'audio-train-transfer')
-n_samples = 112
+n_samples = 120
 spect_shape = (540, 960, 3)
 
 # Learn SVM input features from the neural network

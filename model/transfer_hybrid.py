@@ -1,4 +1,5 @@
-# ### LPCC & MFCC based hybrid Transfer Learning
+# LPCC & MFCC based hybrid Transfer Learning
+
 import os
 
 from keras.models import Model
@@ -24,7 +25,7 @@ window_size = 10
 audio_len = 30
 audio_len_nn = 600
 data_dir = os.path.join('..', 'audio-train-transfer')
-n_samples = 112
+n_samples = 120
 lpcc_shape = (10, (n_lpcc + 1) / 5, 1)
 mfcc_shape = (n_mfcc, n_mfcc_width, 1)
 

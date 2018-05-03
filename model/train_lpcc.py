@@ -1,3 +1,5 @@
+# LPCC based Transfer Learning
+
 import os
 
 from sklearn.model_selection import train_test_split
@@ -10,7 +12,7 @@ window_size = 10
 audio_len = 600
 data_dir = os.path.join('..', 'audio-train-new')
 lpcc_shape = (10, (n_lpcc + 1) / 5, 1)
-n_samples = 112
+n_samples = 120
 
 def main():
     # Generate LPCC features and save them on the disk.

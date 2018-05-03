@@ -11,7 +11,7 @@ from utils import *
 window_size = 12
 audio_len = 84
 data_dir = os.path.join('..', 'audio-train-new')
-n_samples = 112
+n_samples = 120
 spect_shape = (540, 960, 3)
 c_batch_size = 32
 
