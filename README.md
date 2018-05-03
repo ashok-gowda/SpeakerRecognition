@@ -9,7 +9,7 @@ Traditional speaker recognition systems use speech features or neural networks t
 
 ## Steps to run 
 ### Setup
-*  `cd SpeakerRecognition`
+* `cd SpeakerRecognition`
 * `./setup.sh` Note: This may take a very long time, since the training data is in tens of GBs.
 * `cd model`
 
