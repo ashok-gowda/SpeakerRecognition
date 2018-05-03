@@ -86,7 +86,8 @@ def distribute_samples(root):
                     shutil.move(os.path.join(subdir, directory, sample), \
                                 os.path.join(subdir, directory + "." + str(i + 1), sample))
                 break
-        remove_extra_samples(root)
+            shutil.rmtree(os.path.join(subdir, directory))
+        remove_extra_samples(root, 10)
         break
 
 # Combine distributed samples back into a single directory
